@@ -4,7 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
-import { ReactiveFormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavigationComponent,
     FooterComponent,
     ProgressBarComponent,
-    ReactiveFormsModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss', '../styles.scss'],

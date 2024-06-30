@@ -1,19 +1,19 @@
-<form [formGroup]="paymentItemForm">
+<form [formGroup]="paymentItemForm" (ngSubmit)="handleSubmit()">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Details</h5>
           <div class="mb-3 text-start col-3">
-            <label htmlFor="itemName" class="form-label">Item name</label>
+            <label for="itemName" class="form-label">Item name</label>
             <input
               type="text"
               class="form-control"
               id="itemName"
-              value={{item.itemName}}
+              formControlName="itemName"
             />
             <!-- {errors.itemName && <div class="text-danger">{errors.itemName}</div>} -->
           </div>
           <div class="mb-3 text-start col-3">
-            <label htmlFor="itemShortName" class="form-label mb-0">Item short name</label>
+            <label for="itemShortName" class="form-label mb-0">Item short name</label>
             <small class="text-muted">
               <p class="mb-1">Used in SMS messages</p>
             </small>
@@ -21,13 +21,13 @@
               type="text"
               class="form-control"
               id="itemShortName"
-              value={{item.itemShortName}}
+              formControlName="itemShortName"
               
             />
             <!-- {errors.itemShortName && <div class="text-danger">{errors.itemShortName}</div>} -->
           </div>
           <div class="mb-3 text-start">
-            <label htmlFor="description" class="form-label mb-0">Description</label>
+            <label for="description" class="form-label mb-0">Description</label>
             <small class="text-muted">
               <p class="mb-1">Provide information about your payment item</p>
             </small>
@@ -35,20 +35,19 @@
               class="form-control"
               id="description"
               rows="3"
-              value={{item.description}}
-              
+              formControlName="description"
+              placeholder="Enter a description of the item here..."
             ></textarea>
             <!-- {errors.description && <div class="text-danger">{errors.description}</div>} -->
           </div>
           <div class="mb-3 text-start">
-            <label htmlFor="notes" class="form-label mb-0">Additional information needed</label>
+            <label for="notes" class="form-label mb-0">Additional information needed</label>
             <div class="col-3">
               <select
                 id="notes"
                 class="form-select"
                 aria-label="notes"
-                value={{item.notes}}
-                
+                formControlName="notes"                
               >
                 <option value="No notes field">No notes field</option>
                 <option value="Mandatory">Mandatory</option>
@@ -58,14 +57,13 @@
           </div>
 
           <div class="mb-3 text-start">
-            <label htmlFor="category" class="form-label mb-0">Category (optional)</label>
+            <label for="category" class="form-label mb-0">Category (optional)</label>
             <div class="col-3">
               <select
                 id="category"
                 class="form-select"
                 aria-label="category"
-                value={{item.category}}
-                
+                    formControlName="category"                
               >
                 <option value="None">None</option>
                 <option value="Activity">Activity</option>
@@ -111,7 +109,7 @@
       </div>
       
         <div class="text-end">
-          <button type="button" class="btn btn-light mt-2 me-2" onClick={exitWithoutSaving}>
+          <button type="button" class="btn btn-light mt-2 me-2" (click)="exitWithoutSaving()">
             Cancel
           </button>
           <button type="submit" class="btn btn-primary mt-2">Continue to quantities</button>
