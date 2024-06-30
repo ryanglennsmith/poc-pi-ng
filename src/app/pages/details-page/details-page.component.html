@@ -1,120 +1,146 @@
 <form [formGroup]="paymentItemForm" (ngSubmit)="handleSubmit()">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Details</h5>
-          <div class="mb-3 text-start col-3">
-            <label for="itemName" class="form-label">Item name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="itemName"
-              formControlName="itemName"
-            />
-            <!-- {errors.itemName && <div class="text-danger">{errors.itemName}</div>} -->
-          </div>
-          <div class="mb-3 text-start col-3">
-            <label for="itemShortName" class="form-label mb-0">Item short name</label>
-            <small class="text-muted">
-              <p class="mb-1">Used in SMS messages</p>
-            </small>
-            <input
-              type="text"
-              class="form-control"
-              id="itemShortName"
-              formControlName="itemShortName"
-              
-            />
-            <!-- {errors.itemShortName && <div class="text-danger">{errors.itemShortName}</div>} -->
-          </div>
-          <div class="mb-3 text-start">
-            <label for="description" class="form-label mb-0">Description</label>
-            <small class="text-muted">
-              <p class="mb-1">Provide information about your payment item</p>
-            </small>
-            <textarea
-              class="form-control"
-              id="description"
-              rows="3"
-              formControlName="description"
-              placeholder="Enter a description of the item here..."
-            ></textarea>
-            <!-- {errors.description && <div class="text-danger">{errors.description}</div>} -->
-          </div>
-          <div class="mb-3 text-start">
-            <label for="notes" class="form-label mb-0">Additional information needed</label>
-            <div class="col-3">
-              <select
-                id="notes"
-                class="form-select"
-                aria-label="notes"
-                formControlName="notes"                
-              >
-                <option value="No notes field">No notes field</option>
-                <option value="Mandatory">Mandatory</option>
-                <option value="Optional">Optional</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="mb-3 text-start">
-            <label for="category" class="form-label mb-0">Category (optional)</label>
-            <div class="col-3">
-              <select
-                id="category"
-                class="form-select"
-                aria-label="category"
-                    formControlName="category"                
-              >
-                <option value="None">None</option>
-                <option value="Activity">Activity</option>
-                <option value="Course">Course</option>
-                <option value="Exam resit">Exam resit</option>
-                <option value="Fees or contribution">Fees or contribution</option>
-                <option value="Letting">Letting</option>
-                <option value="Meal">Meal</option>
-                <option value="Parents evening">Parents evening</option>
-                <option value="School bus">School bus</option>
-                <option value="Tickets">Tickets</option>
-                <option value="Tuition">Tuition</option>
-                <option value="Uniform">Uniform</option>
-                <option value="Wrap around care">Wrap around care</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-          </div>
-
-
-          <div class="mb-3 text-start">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="consent"/>
-              <label class="form-check-label" for="consent">
-              Tick if you require parents/carers to provide consent
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="newItemAlert"/>
-              <label class="form-check-label" for="newItemAlert">
-              Tick if you wish to enable a new item alert for your parents/carers
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="PayPoint"/>
-              <label class="form-check-label" for="PayPoint">
-              Tick if you wish to be able to accept payments by PayPoint for this item
-              </label>
-            </div>
-          </div>
-
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Details</h5>
+      <div class="mb-3 text-start col-3">
+        <label for="itemName" class="form-label">Item name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="itemName"
+          formControlName="itemName"
+        />
+        <!-- {errors.itemName && <div class="text-danger">{errors.itemName}</div>} -->
+      </div>
+      <div class="mb-3 text-start col-3">
+        <label for="itemShortName" class="form-label mb-0"
+          >Item short name</label
+        >
+        <small class="text-muted">
+          <p class="mb-1">Used in SMS messages</p>
+        </small>
+        <input
+          type="text"
+          class="form-control"
+          id="itemShortName"
+          formControlName="itemShortName"
+        />
+        <!-- {errors.itemShortName && <div class="text-danger">{errors.itemShortName}</div>} -->
+      </div>
+      <div class="mb-3 text-start">
+        <label for="description" class="form-label mb-0">Description</label>
+        <small class="text-muted">
+          <p class="mb-1">Provide information about your payment item</p>
+        </small>
+        <textarea
+          class="form-control"
+          id="description"
+          rows="3"
+          formControlName="description"
+          placeholder="Enter a description of the item here..."
+        ></textarea>
+        <!-- {errors.description && <div class="text-danger">{errors.description}</div>} -->
+      </div>
+      <div class="mb-3 text-start">
+        <label for="notes" class="form-label mb-0"
+          >Additional information needed</label
+        >
+        <div class="col-3">
+          <select
+            id="notes"
+            class="form-select"
+            aria-label="notes"
+            formControlName="notes"
+          >
+            <option value="No notes field">No notes field</option>
+            <option value="Mandatory">Mandatory</option>
+            <option value="Optional">Optional</option>
+          </select>
         </div>
       </div>
-      
-        <div class="text-end">
-          <button type="button" class="btn btn-light mt-2 me-2" (click)="exitWithoutSaving()">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-primary mt-2">Continue to quantities</button>
-        </div>
 
-        <!-- {showModal && <Modal onClose={closeModal} />} -->
-      
-    </form>
+      <div class="mb-3 text-start">
+        <label for="category" class="form-label mb-0"
+          >Category (optional)</label
+        >
+        <div class="col-3">
+          <select
+            id="category"
+            class="form-select"
+            aria-label="category"
+            formControlName="category"
+          >
+            <option value="None">None</option>
+            <option value="Activity">Activity</option>
+            <option value="Course">Course</option>
+            <option value="Exam resit">Exam resit</option>
+            <option value="Fees or contribution">Fees or contribution</option>
+            <option value="Letting">Letting</option>
+            <option value="Meal">Meal</option>
+            <option value="Parents evening">Parents evening</option>
+            <option value="School bus">School bus</option>
+            <option value="Tickets">Tickets</option>
+            <option value="Tuition">Tuition</option>
+            <option value="Uniform">Uniform</option>
+            <option value="Wrap around care">Wrap around care</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3 text-start">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="consent"
+          />
+          <label class="form-check-label" for="consent">
+            Tick if you require parents/carers to provide consent
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="newItemAlert"
+          />
+          <label class="form-check-label" for="newItemAlert">
+            Tick if you wish to enable a new item alert for your parents/carers
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="PayPoint"
+          />
+          <label class="form-check-label" for="PayPoint">
+            Tick if you wish to be able to accept payments by PayPoint for this
+            item
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-end">
+    <button
+      type="button"
+      class="btn btn-light mt-2 me-2"
+      (click)="exitWithoutSaving()"
+    >
+      Cancel
+    </button>
+    <button type="submit" class="btn btn-primary mt-2">
+      Continue to quantities
+    </button>
+  </div>
+
+  @if (modalService.showModalSignal()){
+  <app-exit-modal/>
+}
+</form>

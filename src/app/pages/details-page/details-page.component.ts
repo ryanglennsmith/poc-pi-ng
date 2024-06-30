@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   FormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { ExitModalComponent } from '../../components/exit-modal/exit-modal.component';
+import { ExitModalService } from '../../services/exit-modal.service';
 //types will be moved to a shared location like /app/types
 interface PIDetails {
   itemName: FormControl;
@@ -14,10 +16,6 @@ interface PIDetails {
   category: FormControl; // enum this later
 }
 
-const showModal = () => {
-  // logic to show modal
-};
-
 const handleSubmit = () => {
   console.log('submitting');
   // logic to handle submit
@@ -26,12 +24,15 @@ const handleSubmit = () => {
 @Component({
   selector: 'app-details-page',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ExitModalComponent],
   templateUrl: './details-page.component.html',
   styleUrl: './details-page.component.scss',
 })
 export class DetailsPageComponent {
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    public modalService: ExitModalService
+  ) {
     this.paymentItemForm = this.formBuilder.group({
       itemName: '',
       itemShortName: '',
@@ -43,11 +44,17 @@ export class DetailsPageComponent {
   paymentItemForm: FormGroup<PIDetails>;
   showModal = false;
   exitWithoutSaving = () => {
+    this.modalService.showModal();
     console.log('exiting without saving');
     // logic to exit without saving / show modal
   };
   handleSubmit = () => {
     console.table(this.paymentItemForm.value);
     // logic to handle validation and submit
+  };
+  closeModal = () => {
+    console.log('closing modal');
+    this.showModal = false;
+    // logic to close modal
   };
 }
