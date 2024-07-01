@@ -9,6 +9,9 @@ import { ExitModalComponent } from '../../components/exit-modal/exit-modal.compo
 import { ExitModalService } from '../../services/exit-modal.service';
 import CategoryField from '../../types/CategoryField';
 import NotesField from '../../types/NotesField';
+import PaymentItemDetails from '../../types/PaymentItemDetails';
+import { FormContextService } from '../../services/form-context.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-details-page',
@@ -20,7 +23,9 @@ import NotesField from '../../types/NotesField';
 export class DetailsPageComponent {
   constructor(
     private formBuilder: FormBuilder,
-    public modalService: ExitModalService
+    public modalService: ExitModalService,
+    private formCtxSvc: FormContextService,
+    private router: Router
   ) {
     this.paymentItemForm = this.formBuilder.group({
       itemName: ['', Validators.required],
@@ -33,18 +38,24 @@ export class DetailsPageComponent {
       enablePayPoint: false,
     });
   }
+
   paymentItemForm: FormGroup;
-  showModal = false;
+  submitClicked = false;
+
   exitWithoutSaving = () => {
     this.modalService.showModal();
     console.log('exiting without saving');
     // logic to exit without saving / show modal
   };
   handleSubmit = () => {
-    console.table(this.paymentItemForm.value);
-    console.log(this.paymentItemForm.status);
-    console.log(this.paymentItemForm.value.itemName);
-    // logic to handle validation and submit
+    this.submitClicked = true;
+    if (this.paymentItemForm.invalid) {
+      return;
+    }
+    this.formCtxSvc.setPaymentItemDetails(
+      this.paymentItemForm.value as PaymentItemDetails
+    );
+    this.router.navigate(['/quantities']);
   };
 
   //iterate through enum for categories

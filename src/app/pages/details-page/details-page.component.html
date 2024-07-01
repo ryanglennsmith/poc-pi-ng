@@ -10,10 +10,9 @@
           id="itemName"
           formControlName="itemName"
         />
-        @if (itemName !== null && itemName.hasError('required')) {
-          <div class="text-danger">Item name is required</div>
+        @if (submitClicked && itemName && itemName.hasError('required')) {
+        <div class="text-danger">Item name is required</div>
         }
-        <!-- {errors.itemName && <div class="text-danger">{errors.itemName}</div>} -->
       </div>
       <div class="mb-3 text-start col-3">
         <label for="itemShortName" class="form-label mb-0"
@@ -28,7 +27,10 @@
           id="itemShortName"
           formControlName="itemShortName"
         />
-        <!-- {errors.itemShortName && <div class="text-danger">{errors.itemShortName}</div>} -->
+        @if (submitClicked && itemShortName &&
+        itemShortName.hasError('required')) {
+        <div class="text-danger">Item short name is required</div>
+        }
       </div>
       <div class="mb-3 text-start">
         <label for="description" class="form-label mb-0">Description</label>
@@ -42,7 +44,9 @@
           formControlName="description"
           placeholder="Enter a description of the item here..."
         ></textarea>
-        <!-- {errors.description && <div class="text-danger">{errors.description}</div>} -->
+        @if (submitClicked && description && description.hasError('required')) {
+        <div class="text-danger">Description is required</div>
+        }
       </div>
       <div class="mb-3 text-start">
         <label for="notes" class="form-label mb-0"
@@ -55,9 +59,9 @@
             aria-label="notes"
             formControlName="notes"
           >
-          @for (note of notes; track note) {
-            <option value="{{note}}">{{note}}</option>
-          }
+            @for (note of notes; track note) {
+            <option value="{{ note }}">{{ note }}</option>
+            }
           </select>
         </div>
       </div>
@@ -73,9 +77,9 @@
             aria-label="category"
             formControlName="category"
           >
-          @for (category of categories; track category) {
-            <option value="{{category}}">{{category}}</option>
-          }
+            @for (category of categories; track category) {
+            <option value="{{ category }}">{{ category }}</option>
+            }
           </select>
         </div>
       </div>
@@ -133,6 +137,6 @@
   </div>
 
   @if (modalService.showModalSignal()){
-  <app-exit-modal/>
-}
+  <app-exit-modal />
+  }
 </form>

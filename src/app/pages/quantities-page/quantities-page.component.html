@@ -1,0 +1,174 @@
+<form [formGroup]="quantitiesForm" (ngSubmit)="handleSubmit()">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Quantities</h5>
+      <div class="text-start col-3 mb-3">
+        <label class="form-label bold mb-1">Item availability</label>
+        <p>After the item is purchased, should it:</p>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="repeatableOption"
+            value="one-time"
+          />
+          <label class="form-check-label me-3" for="repeatableOption"
+            >Be removed after payment</label
+          >
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            value="repeatable"
+            formControlName="repeatableOption"
+          />
+
+          <label class="form-check-label" for="repeatableOption"
+            >Be available to buy again</label
+          >
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="mb-3 text-start">
+        <label class="form-label bold mb-1">Inventory</label>
+        <p>How many are available to sell?</p>
+        <div class="col-3">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="limitedPlacesOption"
+              value="unlimited"
+              (ngModelChange)="toggleLimitedPlacesField()"
+            />
+            <label class="form-check-label me-3" for="limitedPlaces"
+              >Unlimited</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="limitedPlacesOption"
+              value="limited"
+              (ngModelChange)="toggleLimitedPlacesField()"
+            />
+            <label class="form-check-label" for="limitedPlaces"
+              >Set inventory</label
+            >
+          </div>
+        </div>
+      </div>
+      @if (showLimitedPlacesField) {
+      <div class="mb-3 text-start col-3">
+        <label for="numberOfPlaces" class="form-label"
+          >Number of places available</label
+        >
+        <input
+          type="number"
+          class="form-control"
+          id="numberOfPlaces"
+          formControlName="numberOfPlaces"
+        />
+        @if (submitClicked && numberOfPlacesOption &&
+        numberOfPlacesOption.hasError('required')) {
+        <div class="text-danger">this one's required homie</div>
+
+        }
+      </div>
+      }
+
+      <hr />
+      <div class="mb-3 text-start">
+        <label class="form-label bold mb-1">Purchase volume</label>
+        <p>How many can be purchased per transaction?</p>
+        <div class="col-3">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="limitedQuantityOption"
+              value="unlimited"
+              (ngModelChange)="toggleLimitedQtyField()"
+            />
+            <label class="form-check-label me-3" for="itemQuantityOption"
+              >Unlimited</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="limitedQuantityOption"
+              value="limited"
+              (ngModelChange)="toggleLimitedQtyField()"
+            />
+            <label class="form-check-label" for="itemQuantityOption"
+              >Set limit</label
+            >
+          </div>
+        </div>
+      </div>
+      @if (showLimitedQtyField) {
+
+      <div class="row mb-3 text-start">
+        <div class="col-2">
+          <label for="itemQuantity" class="form-label">Default quantity</label>
+          <input
+            type="number"
+            class="form-control"
+            id="itemQuantity"
+            formControlName="stockAvailable"
+          />
+        </div>
+        <div class="col-2">
+          <label for="minQuantity" class="form-label">Minimum quantity</label>
+          <input
+            type="number"
+            class="form-control"
+            id="minQuantity"
+            formControlName="minimum"
+          />
+        </div>
+        <div class="col-2">
+          <label for="maxQuantity" class="form-label">Maximum quantity</label>
+          <input
+            type="number"
+            class="form-control"
+            id="maxQuantity"
+            formControlName="maximum"
+          />
+        </div>
+      </div>
+      }
+      <!-- {errors.itemQuantity && <div class="text-danger">{errors.itemQuantity}</div>} -->
+    </div>
+  </div>
+
+  <div class="trips-buttons">
+    <div class="text-start">
+      <button class="btn btn-link mt-2" type="button">
+        <!-- navigate back -->
+        Back
+      </button>
+    </div>
+    <div class="text-end">
+      <button
+        type="button"
+        class="btn btn-light mt-2 me-2"
+        (click)="exitWithoutSaving()"
+      >
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary mt-2">
+        Continue to Costs
+      </button>
+    </div>
+    @if (modalService.showModalSignal()){
+    <app-exit-modal />
+    }
+  </div>
+</form>
