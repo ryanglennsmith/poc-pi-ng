@@ -1,25 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import {
-  FormControl,
   FormGroup,
   FormBuilder,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { ExitModalComponent } from '../../components/exit-modal/exit-modal.component';
 import { ExitModalService } from '../../services/exit-modal.service';
-//types will be moved to a shared location like /app/types
-interface PIDetails {
-  itemName: FormControl;
-  itemShortName: FormControl;
-  description: FormControl;
-  notes: FormControl; // enum this later
-  category: FormControl; // enum this later
-}
-
-const handleSubmit = () => {
-  console.log('submitting');
-  // logic to handle submit
-};
+import CategoryField from '../../types/CategoryField';
+import NotesField from '../../types/NotesField';
 
 @Component({
   selector: 'app-details-page',
@@ -34,14 +23,17 @@ export class DetailsPageComponent {
     public modalService: ExitModalService
   ) {
     this.paymentItemForm = this.formBuilder.group({
-      itemName: '',
-      itemShortName: '',
-      description: '',
+      itemName: ['', Validators.required],
+      itemShortName: ['', Validators.required],
+      description: ['', Validators.required],
       notes: 'No notes field',
       category: 'None',
+      requireConsent: false,
+      enableAlert: false,
+      enablePayPoint: false,
     });
   }
-  paymentItemForm: FormGroup<PIDetails>;
+  paymentItemForm: FormGroup;
   showModal = false;
   exitWithoutSaving = () => {
     this.modalService.showModal();
@@ -50,11 +42,23 @@ export class DetailsPageComponent {
   };
   handleSubmit = () => {
     console.table(this.paymentItemForm.value);
+    console.log(this.paymentItemForm.status);
+    console.log(this.paymentItemForm.value.itemName);
     // logic to handle validation and submit
   };
-  closeModal = () => {
-    console.log('closing modal');
-    this.showModal = false;
-    // logic to close modal
-  };
+
+  //iterate through enum for categories
+  categories = Object.values(CategoryField);
+  //iterate through enum for notes
+  notes = Object.values(NotesField);
+
+  get itemName() {
+    return this.paymentItemForm.get('itemName');
+  }
+  get itemShortName() {
+    return this.paymentItemForm.get('itemShortName');
+  }
+  get description() {
+    return this.paymentItemForm.get('description');
+  }
 }
