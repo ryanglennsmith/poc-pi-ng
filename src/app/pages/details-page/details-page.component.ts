@@ -72,4 +72,7 @@ export class DetailsPageComponent {
   get description() {
     return this.paymentItemForm.get('description');
   }
+  goForward = () => {
+    this.router.navigate(['/quantities']);
+  };
 }

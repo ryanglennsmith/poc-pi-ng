@@ -35,6 +35,7 @@ export class QuantitiesPageComponent {
       maximum: [0, this.limitedQuantityValidator],
     });
   }
+
   showLimitedQtyField = false;
   toggleLimitedQtyField = () => {
     this.showLimitedQtyField =
@@ -117,7 +118,10 @@ export class QuantitiesPageComponent {
   get maximumOption() {
     return this.quantitiesForm.get('maximum');
   }
-
+  //TODO delete this
+  goForward = () => {
+    this.router.navigate(['/costs']);
+  };
   goBack = () => {
     this.router.navigate(['/details']);
   };

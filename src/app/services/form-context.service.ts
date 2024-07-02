@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import PaymentItemDetails from '../types/PaymentItemDetails';
 import ItemQuantities from '../types/ItemQuantities';
+import ItemCosts from '../types/ItemCosts';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,7 @@ import ItemQuantities from '../types/ItemQuantities';
 export class FormContextService {
   paymentItemDetails = signal<PaymentItemDetails | null>(null);
   itemQuantities = signal<ItemQuantities | null>(null);
+  paymentItemsCosts = signal<ItemCosts | null>(null);
 
   get itemQuantitiesSignal() {
     return this.itemQuantities;
@@ -15,6 +17,10 @@ export class FormContextService {
 
   get paymentItemDetailsSignal() {
     return this.paymentItemDetails;
+  }
+
+  get paymentItemsCostsSignal() {
+    return this.paymentItemsCosts;
   }
 
   setPaymentItemDetails = (details: PaymentItemDetails) => {
@@ -25,6 +31,11 @@ export class FormContextService {
   setItemQuantities = (quantities: ItemQuantities) => {
     this.itemQuantities.set(quantities);
     console.table(quantities);
+  };
+
+  setPaymentItemsCosts = (costs: ItemCosts) => {
+    this.paymentItemsCosts.set(costs);
+    console.table(costs);
   };
 
   constructor() {}
