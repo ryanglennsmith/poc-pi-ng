@@ -75,7 +75,7 @@
         />
         @if (submitClicked && numberOfPlacesOption &&
         numberOfPlacesOption.hasError('required')) {
-        <div class="text-danger">this one's required homie</div>
+        <div class="text-danger">Number of places is required</div>
 
         }
       </div>
@@ -113,7 +113,6 @@
         </div>
       </div>
       @if (showLimitedQtyField) {
-
       <div class="row mb-3 text-start">
         <div class="col-2">
           <label for="itemQuantity" class="form-label">Default quantity</label>
@@ -143,15 +142,18 @@
           />
         </div>
       </div>
+      } @if (submitClicked && limitedQuantityOption &&
+      (stockAvailableOption!.hasError('required') ||
+      minimumOption!.hasError('required') ||
+      maximumOption!.hasError('required'))) {
+      <div class="text-danger">Fill out all quantity fields</div>
       }
-      <!-- {errors.itemQuantity && <div class="text-danger">{errors.itemQuantity}</div>} -->
     </div>
   </div>
 
   <div class="trips-buttons">
     <div class="text-start">
-      <button class="btn btn-link mt-2" type="button">
-        <!-- navigate back -->
+      <button class="btn btn-link mt-2" type="button" (click)="goBack()">
         Back
       </button>
     </div>
