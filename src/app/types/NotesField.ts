@@ -1,6 +1,6 @@
 enum NotesField {
-  none = 'No notes field',
-  mandatory = 'Mandatory',
-  optional = 'Optional',
+  none = 'none',
+  mandatory = 'mandatory',
+  optional = 'optional',
 }
 export default NotesField;

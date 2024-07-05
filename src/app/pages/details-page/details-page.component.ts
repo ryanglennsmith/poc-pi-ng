@@ -29,9 +29,9 @@ export class DetailsPageComponent {
   ) {
     this.paymentItemForm = this.formBuilder.group({
       itemName: ['', Validators.required],
-      itemShortName: ['', Validators.required],
-      description: ['', Validators.required],
-      notes: 'No notes field',
+      itemShortName: '',
+      description: ['', Validators.required, Validators.maxLength(1000)],
+      notes: 'none',
       category: 'None',
       requireConsent: false,
       enableAlert: false,
@@ -61,7 +61,7 @@ export class DetailsPageComponent {
   //iterate through enum for categories
   categories = Object.values(CategoryField);
   //iterate through enum for notes
-  notes = Object.values(NotesField);
+  // notes = Object.values(NotesField);
 
   get itemName() {
     return this.paymentItemForm.get('itemName');
