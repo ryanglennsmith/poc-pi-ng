@@ -3,8 +3,8 @@
     <div class="card-body">
       <h5 class="card-title">Quantities</h5>
       <div class="text-start col-3 mb-3">
-        <label class="form-label bold mb-1">Item availability</label>
-        <p>After the item is purchased, should it:</p>
+        <label class="form-label bold mb-1">After purchase</label>
+        <p>What should happen after the item is purchased?</p>
         <div class="form-check">
           <input
             class="form-check-input"
@@ -33,21 +33,9 @@
       <hr />
 
       <div class="mb-3 text-start">
-        <label class="form-label bold mb-1">Inventory</label>
-        <p>How many are available to sell?</p>
+        <label class="form-label bold mb-1">Amount available</label>
+        <p>How many of this item do you have for sale?</p>
         <div class="col-3">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              formControlName="limitedPlacesOption"
-              value="unlimited"
-              (ngModelChange)="toggleLimitedPlacesField()"
-            />
-            <label class="form-check-label me-3" for="limitedPlaces"
-              >Unlimited</label
-            >
-          </div>
           <div class="form-check">
             <input
               class="form-check-input"
@@ -57,7 +45,19 @@
               (ngModelChange)="toggleLimitedPlacesField()"
             />
             <label class="form-check-label" for="limitedPlaces"
-              >Set inventory</label
+              >I have a specific number</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="limitedPlacesOption"
+              value="unlimited"
+              (ngModelChange)="toggleLimitedPlacesField()"
+            />
+            <label class="form-check-label me-3" for="limitedPlaces"
+              >No limit</label
             >
           </div>
         </div>
@@ -83,21 +83,9 @@
 
       <hr />
       <div class="mb-3 text-start">
-        <label class="form-label bold mb-1">Purchase volume</label>
-        <p>How many can be purchased per transaction?</p>
+        <label class="form-label bold mb-1">Transaction limit</label>
+        <p>How many of this item can someone buy at one time?</p>
         <div class="col-3">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              formControlName="limitedQuantityOption"
-              value="unlimited"
-              (ngModelChange)="toggleLimitedQtyField()"
-            />
-            <label class="form-check-label me-3" for="itemQuantityOption"
-              >Unlimited</label
-            >
-          </div>
           <div class="form-check">
             <input
               class="form-check-input"
@@ -107,7 +95,19 @@
               (ngModelChange)="toggleLimitedQtyField()"
             />
             <label class="form-check-label" for="itemQuantityOption"
-              >Set limit</label
+              >Limit the number someone can buy per transaction</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="limitedQuantityOption"
+              value="unlimited"
+              (ngModelChange)="toggleLimitedQtyField()"
+            />
+            <label class="form-check-label me-3" for="itemQuantityOption"
+              >No limit</label
             >
           </div>
         </div>

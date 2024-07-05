@@ -1,10 +1,11 @@
 <form [formGroup]="costsForm" (ngSubmit)="handleSubmit()">
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Price</h5>
+      <h5 class="card-title">Pricing</h5>
 
       <div class="mb-3 text-start">
-        <label class="form-label bold">Cost</label>
+        <label class="form-label bold">Pricing</label>
+        <p>How do you want to set the price for this item?</p>
         <div class="col-3">
           <div class="form-check">
             <input
@@ -13,7 +14,9 @@
               formControlName="variableCostOption"
               value="fixed"
             />
-            <label class="form-check-label me-3" for="fixedamount">Fixed</label>
+            <label class="form-check-label me-3" for="fixedamount"
+              >Set a single price per item</label
+            >
           </div>
           <div class="form-check">
             <input
@@ -22,7 +25,9 @@
               formControlName="variableCostOption"
               value="variable"
             />
-            <label class="form-check-label" for="variable">Variable</label>
+            <label class="form-check-label" for="variable"
+              >Allow payments anywhere between a minimum and maximum</label
+            >
           </div>
         </div>
       </div>
@@ -94,10 +99,11 @@
       }
       <hr />
       <div class="mb-3 text-start">
-        <label class="form-label bold mb-0">Due date</label>
-        <small class="text-muted">
-          <p class="mb-2">Payments can be made after this date</p>
-        </small>
+        <label class="form-label bold mb-0">Display due date</label>
+        <p>
+          Do you want to display a due date? (Payments can still be made after
+          the date)
+        </p>
         <div class="col-3">
           <div class="form-check">
             <input
@@ -106,7 +112,9 @@
               formControlName="hasDueDate"
               value="true"
             />
-            <label class="form-check-label me-3" for="paymentDue">Yes</label>
+            <label class="form-check-label me-3" for="paymentDue"
+              >Show a due date</label
+            >
           </div>
           <div class="form-check">
             <input
@@ -115,7 +123,9 @@
               formControlName="hasDueDate"
               value="false"
             />
-            <label class="form-check-label" for="noPaymentDue">No</label>
+            <label class="form-check-label" for="noPaymentDue"
+              >No due date</label
+            >
           </div>
         </div>
       </div>
