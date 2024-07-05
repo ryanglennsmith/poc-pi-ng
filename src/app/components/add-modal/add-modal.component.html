@@ -1,0 +1,60 @@
+<div class="modal fade show exitmodal modal-lg" tabIndex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add people</h5>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="closeModal()"
+        ></button>
+      </div>
+      <div class="modal-body text-start">
+        <div class="mb-3">
+          <span class="bold">Add groups</span>
+          <select class="form-select">
+            <option selected disabled>Open this select menu</option>
+            @for (group of yearGroups; track group) {
+            <option value="group">
+              <span (click)="pushGroup(group)">{{ group }}</span>
+            </option>
+            }
+          </select>
+          @if (selectedGroups.length > 0) { @for (group of selectedGroups; track
+          group) {
+          <div class="mt-1 text-start">
+            <span class="badge bg-primary me-2 fs-7" key="key"
+              >{{ group }}<span (click)="xClick()">&nbsp;x</span></span
+            >
+          </div>
+          }}
+        </div>
+        <span class="bold">Add individuals</span>
+        <select class="form-select">
+          <option selected disabled>Open this select menu</option>
+          @for (person of people; track person) {
+          <option value="person">
+            <span (click)="pushPerson(person)">{{ person }}</span>
+          </option>
+          }
+        </select>
+        <!-- {selectedPupils.length > 0 && (
+        <div class="mt-1 text-start">
+          {selectedPupils.map((group, index) => (
+          <span class="badge bg-primary me-2 fs-7" key="{index}">{group}</span>
+          ))}
+        </div>
+        )} -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link" (click)="closeModal()">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary" (click)="placeholder()">
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

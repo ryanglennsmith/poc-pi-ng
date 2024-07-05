@@ -83,7 +83,12 @@
             />
           </div>
         </div>
-        <!-- {errors.defaultAmount && <div class="text-danger">{errors.defaultAmount}</div>} -->
+        @if (submitClicked && variableCostOption &&
+        (variableDefault!.hasError('required') ||
+        variableMin!.hasError('required') ||
+        variableMax!.hasError('required'))){
+        <div class="text-danger">Fill out all amount fields</div>
+        }
       </div>
 
       }
@@ -124,7 +129,9 @@
           id="dueDate"
           formControlName="dueDate"
         />
-        <!-- {errors.dueDate && <div class="text-danger">{errors.dueDate}</div>} -->
+        @if (submitClicked && dueDate && dueDate.hasError('required')) {
+        <div class="text-danger">Select a due date</div>
+        }
       </div>
 
       }
@@ -143,7 +150,9 @@
             }
           </select>
         </div>
-        <!-- {errors.bankAccount && <div class="text-danger">{errors.bankAccount}</div>} -->
+        @if (submitClicked && bankAccount && bankAccount.hasError('required')) {
+        <div class="text-danger">Select a bank account</div>
+        }
       </div>
       <div class="mb-3 text-start">
         <label class="form-label bold"
@@ -261,6 +270,10 @@
 
   <div class="trips-buttons">
     <div class="text-start">
+      <!-- TODO delete this -->
+      <button class="btn btn-link mt-2" type="button" (click)="goForward()">
+        Go forward (this isn't real)
+      </button>
       <button class="btn btn-link mt-2" type="button" (click)="goBack()">
         Back
       </button>

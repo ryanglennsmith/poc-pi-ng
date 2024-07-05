@@ -1,0 +1,82 @@
+@if (emptyTable){
+<div class="card">
+  <div class="card-body d-flex">
+    <form class="col-3 me-2">
+      <input
+        class="form-control"
+        type="search"
+        placeholder="Search people"
+        aria-label="Search"
+      />
+    </form>
+    <div class="dropdown">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Edit selected
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li>
+          <a class="dropdown-item" href="#" (click)="placeholder()">Add</a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="#" (click)="placeholder()">Remove</a>
+        </li>
+      </ul>
+    </div>
+    <div class="add-people text-end">
+      <button type="button" class="btn btn-light" (click)="placeholder()">
+        Add people
+      </button>
+    </div>
+  </div>
+  <table class="table table-bordered people-table">
+    <thead class="people-table-header table-light">
+      <tr>
+        <th scope="col">
+          <div class="form-check">
+            <input
+              checked="{allChecked}"
+              onChange="{globalCheckbox}"
+              class="form-check-input float-none people-table-checkbox-add"
+              type="checkbox"
+              id="flexCheckDefault"
+            />
+            <label
+              class="form-check-label visually-hidden"
+              for="flexCheckDefault"
+            >
+              Global
+            </label>
+          </div>
+        </th>
+        <th scope="col" width="12%">Individual amount</th>
+        <th scope="col">ID</th>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Year</th>
+        <th scope="col">Reg.</th>
+        <th scope="col">DOB</th>
+        <th scope="col">Due amount</th>
+        <th scope="col">Payments</th>
+        <th scope="col">Balance/paid total</th>
+        <th scope="col" width="12%">Comment</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+  </table>
+
+  <h4>Add people to payment item</h4>
+  <div class="d-grid gap-2 col-3 mx-auto mb-3">
+    <button type="button" class="btn btn-light mt-2" (click)="openAddModal()">
+      Add people
+    </button>
+  </div>
+</div>
+} @if (modalService.showModalSignal()){
+<app-add-modal />
+}

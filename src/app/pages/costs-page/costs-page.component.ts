@@ -4,6 +4,7 @@ import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ExitModalComponent } from '../../components/exit-modal/exit-modal.component';
@@ -29,11 +30,11 @@ export class CostsPageComponent {
       variableCostOption: 'fixed',
       fixedCost: [0, this.fixedCostValidator],
       hasDueDate: 'false',
-      dueDate: '',
-      bankAccount: '',
-      variableDefault: 0,
-      variableMin: 0,
-      variableMax: 0,
+      dueDate: ['', this.dueDateValidator],
+      bankAccount: ['', Validators.required],
+      variableDefault: [0, this.variableCostValidator],
+      variableMin: [0, this.variableCostValidator],
+      variableMax: [0, this.variableCostValidator],
       addAccountingCodes: 'false',
     });
   }
@@ -50,17 +51,39 @@ export class CostsPageComponent {
     return null;
   };
 
+  variableCostValidator = (control: AbstractControl) => {
+    if (
+      this.costsForm &&
+      this.costsForm.value.variableCostOption === 'variable'
+    ) {
+      if (control.value === 0) {
+        return { required: true };
+      }
+    }
+    return null;
+  };
+
+  dueDateValidator = (control: AbstractControl) => {
+    if (this.costsForm && this.costsForm.value.hasDueDate === 'true') {
+      if (control.value === '') {
+        return { required: true };
+      }
+    }
+    return null;
+  };
+
   //TODO delete this
-  goForward = () => {};
+  goForward = () => {
+    this.router.navigate(['/people']);
+  };
   goBack = () => {
     this.router.navigate(['/quantities']);
   };
   handleSubmit = () => {
     this.submitClicked = true;
-
-    // if (this.costsForm.invalid) {
-    //   return;
-    // }
+    if (this.costsForm.invalid) {
+      return;
+    }
     const formCosts: ItemCosts = {
       variableCostOption:
         this.costsForm.value.variableCostOption === 'variable',
@@ -74,9 +97,8 @@ export class CostsPageComponent {
       accountingCodes: [],
     };
     this.formCtxSvc.setPaymentItemsCosts(formCosts);
+    this.router.navigate(['/people']);
   };
-
-  // this.router.navigate(['/']);
 
   get variableCostOption() {
     return this.costsForm.get('variableCostOption');
@@ -89,6 +111,21 @@ export class CostsPageComponent {
   }
   get fixedCost() {
     return this.costsForm.get('fixedCost');
+  }
+  get variableDefault() {
+    return this.costsForm.get('variableDefault');
+  }
+  get variableMin() {
+    return this.costsForm.get('variableMin');
+  }
+  get variableMax() {
+    return this.costsForm.get('variableMax');
+  }
+  get dueDate() {
+    return this.costsForm.get('dueDate');
+  }
+  get bankAccount() {
+    return this.costsForm.get('bankAccount');
   }
 
   bankAcctNums = [123456, 123548, 854632];

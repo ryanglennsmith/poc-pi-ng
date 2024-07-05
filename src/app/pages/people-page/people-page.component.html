@@ -1,0 +1,66 @@
+<form [formGroup]="peopleForm" (ngSubmit)="onSubmit()">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Assign people</h5>
+
+      <p class="bold text-start">Assignment type</p>
+      <div class="form-check text-start">
+        <input
+          class="form-check-input"
+          type="radio"
+          id="manually"
+          [checked]="showManual"
+          (click)="toggleManual()"
+          formControlName="manual"
+        />
+        <label class="form-check-label" for="manually">
+          Selected pupils, staff, visitors, pre-admissions or others
+        </label>
+      </div>
+      <div class="form-check text-start">
+        <input
+          class="form-check-input"
+          type="radio"
+          id="global"
+          formControlName="global"
+          (click)="toggleGlobal()"
+          [checked]="showGlobal"
+        />
+        <label class="form-check-label" for="global">
+          Global - This will go to the whole school and any new people
+          automatically
+        </label>
+      </div>
+    </div>
+  </div>
+  @if (showGlobal){
+  <app-global-add />} @if (showManual){
+  <app-manual-add />
+  }
+  <div class="trips-buttons">
+    <div class="text-start">
+      <button class="btn btn-link mt-2">Back</button>
+    </div>
+    <div class="text-end">
+      <!-- <button class="btn btn-link mt-2 ms-2 reset" onClick="{handleReset}">
+      Reset
+    </button> -->
+      <button
+        type="button"
+        class="btn btn-light mt-2 me-2"
+        (click)="cancelClicked()"
+      >
+        Cancel
+      </button>
+      @if (!successResponse && (showGlobal || showManual)){<button
+        class="btn btn-primary mt-2"
+      >
+        Save</button
+      >} @if (successResponse) {
+      <button class="btn btn-primary mt-2">Continue</button>
+      }
+
+      <!-- {showModal && <Modal onClose={closeModal} />} -->
+    </div>
+  </div>
+</form>

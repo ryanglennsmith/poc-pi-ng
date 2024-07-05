@@ -1,0 +1,224 @@
+<!-- <div class="alert alert-success mt-4" role="alert">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="40"
+    height="40"
+    fill="currentColor"
+    class="bi bi-check"
+    viewBox="0 0 16 16"
+  >
+    <path
+      d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"
+    />
+  </svg>
+  Success! This payment item has been assigned globally
+</div> -->
+<div class="alert alert-info mt-4" role="alert">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="40"
+    height="40"
+    fill="currentColor"
+    class="bi bi-info"
+    viewBox="0 0 16 16"
+  >
+    <path
+      d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
+    />
+  </svg>
+  This is a preview of the people that will be assigned globally. This will
+  include new pupils, staff, and gnomes imported into the school later. Save to
+  continue or cancel to assign people manually.
+</div>
+
+<div class="card">
+  <div class="card-body d-flex">
+    <form class="col-3 me-2">
+      <input
+        class="form-control"
+        type="search"
+        placeholder="Search people"
+        aria-label="Search"
+      />
+    </form>
+    <div class="dropdown">
+      <button
+        class="btn btn-light dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Edit selected
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="#">Add</a></li>
+        <li><a class="dropdown-item" href="#">Remove</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <table class="table table-bordered people-table">
+    <thead class="people-table-header table-light">
+      <tr>
+        <th scope="col">
+          <div class="form-check">
+            <input
+              class="form-check-input float-none people-table-checkbox-add"
+              type="checkbox"
+              id="flexCheckDefault"
+            />
+            <label
+              class="form-check-label visually-hidden"
+              for="flexCheckDefault"
+            >
+              Global
+            </label>
+          </div>
+        </th>
+        <th scope="col" width="12%">Individual amount</th>
+        <th scope="col">ID</th>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Year</th>
+        <th scope="col">Reg.</th>
+        <th scope="col">DOB</th>
+        <th scope="col">Due amount</th>
+        <th scope="col">Payments</th>
+        <th scope="col">Balance/paid total</th>
+        <th scope="col" width="12%">Comment</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="form-check">
+            <input type="checkbox" />
+          </div>
+        </td>
+        <td>
+          <div>
+            <label for="individualAmount" class="form-label"
+              >Individual amount</label
+            >
+            <div class="input-group">
+              <span class="input-group-text" id="basic-addon1">£</span>
+              <input type="number" class="form-control" id="individualAmount" />
+            </div>
+          </div>
+        </td>
+        <td>DYNAMIC-ID</td>
+        <td>DYNAMIC-FIRST-NAME</td>
+        <td>DYNAMIC-LAST-NAME</td>
+        <td>DYNAMIC-YEAR</td>
+        <td>DYNAMIC-REG</td>
+        <td>DYNAMIC-DOB</td>
+        <td>DYNAMIC-DUE-AMOUNT</td>
+        <td>DYNAMIC-PAYMENTS</td>
+        <td>DYNAMIC-BALANCE-PAID-TOTAL</td>
+        <td>
+          <div>
+            <label for="comment" class="form-label">Comment</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="comment" />
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="badge rounded-pill bg-success">Added</span>
+        </td>
+      </tr>
+    </tbody>
+
+    <!-- <tbody>
+                        {checkboxes.map((isChecked, index) => ( // checking is box is checked
+                            <tr key={index}>
+                                <td>
+                                    <div class="form-check">
+                                        <input
+                                            checked={isChecked}
+                                            onChange={() => eachCheckbox(index)}
+                                            class="form-check-input float-none people-table-checkbox-add"
+                                            type="checkbox"
+                                            id={`flexCheck${index}`}
+                                        />
+                                    </div>
+                                </td>
+                                <td><div>
+                                    <label for="individualAmount" class="form-label visually-hidden">Individual amount</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="basic-addon1">£</span>
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="individualAmount"
+                                        />
+                                    </div>
+                                </div></td>
+                                <td>0256312</td>
+                                <td>{index === 0 ? 'Leona' : index === 1 ? 'Hannah' : index === 2 ? 'James' : index === 3 ? 'Finn' : index === 4 ? 'Marcus' : 'Emma-Louise'}</td>
+                                <td>{index === 0 ? 'Otto' : index === 1 ? 'Patrick-jones' : index === 2 ? 'Smith' : index === 3 ? 'Usher' : 'Fisher'}</td>
+                                <td>{index === 0 ? '2' : index === 1 ? '8' : '5'}</td>
+                                <td>{index === 0 ? 'PINE' : index === 1 || index === 4 ? 'ELM' : 'ASH'}</td>
+                                <td>{index === 0 ? '01/05/05' : index === 1 ? '01/09/05' : '01/09/05'}</td>
+                                <td>{index === 0 ? '£50.00' : index === 1 ? '£80.00' : '£50.00'}</td>
+                                <td>{index === 0 ? '0.00' : index === 1 ? '1.00' : '4.00'}</td>
+                                <td>0.00</td>
+                                <td><div>
+                                    <label for="comment" class="form-label visually-hidden">Comment</label>
+                                    <div class="input-group">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="comment"
+                                        />
+                                    </div>
+                                </div></td>
+                                <td>
+                                    {statusList[index] === 'Added' ? (
+                                        <span class="badge rounded-pill bg-success">Added</span>
+                                    ) : (
+                                        <span class="badge rounded-pill bg-danger">Removed</span>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody> -->
+  </table>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end me-3">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabIndex="-1" aria-disabled="true"> ← </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">→</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- 
+<div class="trips-buttons">
+  <div class="text-start">
+    <button class="btn btn-link mt-2" type="button">Back</button>
+  </div>
+  <div class="text-end">
+    <button
+      type="button"
+      class="btn btn-light mt-2 me-2"
+      
+    >
+      Cancel
+    </button>
+    <Link to="/summary">
+                        <button type="submit" class="btn btn-primary mt-2">Continue to Summary</button>
+                    </Link>
+                </div> 
+                {showModal && <Modal onClose={closeModal} />}    
+            </div>
+            -->
