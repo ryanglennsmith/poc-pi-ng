@@ -1,0 +1,142 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Details</h5>
+    <div class="text-start">
+      <p>
+        <span class="bold">Payment item name:</span>
+        {{ paymentItemDetails?.itemName }}
+      </p>
+      <p>
+        <span class="bold">Payment item short name:</span>
+        {{ paymentItemDetails?.itemShortName }}
+      </p>
+      <p>
+        <span class="bold">Description:</span>
+        {{ paymentItemDetails?.description }}
+      </p>
+      <p><span class="bold">Notes:</span> {{ paymentItemDetails?.notes }}</p>
+      <p>
+        <span class="bold">Category:</span> {{ paymentItemDetails?.category }}
+      </p>
+      <!-- !isPublished && ( -->
+
+      <button class="btn btn-primary mt-2" (click)="goto('/details')">
+        Edit details
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Quantites</h5>
+    <div class="text-start">
+      <p>
+        <span class="bold">Purchase quantity:</span>
+        {{ itemQuantities?.numberOfPlaces }}
+      </p>
+      @if(itemQuantities?.limitedPlaces){
+      <p>
+        <span class="bold">Number of places:</span>
+        {{ itemQuantities?.numberOfPlaces }}
+      </p>
+
+      }
+      <p>
+        <span class="bold">Purchase availability:</span>
+        {{ itemQuantities?.limitedPlaces ? "Limited" : "Unlimited" }}
+      </p>
+      @if(itemQuantities?.limitedQuantity){
+
+      <p>
+        <span class="bold">Default amount:</span> {{ itemQuantities?.default }}
+      </p>
+      <p>
+        <span class="bold">Minimum amount:</span> {{ itemQuantities?.minimum }}
+      </p>
+      <p>
+        <span class="bold">Maximum amount:</span> {{ itemQuantities?.maximum }}
+      </p>
+      }
+      <!-- !isPublished && ( -->
+
+      <button class="btn btn-primary mt-2" (click)="goto('/quantities')">
+        Edit quantities
+      </button>
+      <!-- ) -->
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Pricing</h5>
+
+    <div class="text-start">
+      @if(paymentItemCosts?.variableCostOption){
+      <p>
+        <span class="bold">Default amount:</span>
+        £{{ paymentItemCosts?.variableCostDefault }}
+      </p>
+      <p>
+        <span class="bold">Minimum amount:</span>
+        £{{ paymentItemCosts?.variableCostMin }}
+      </p>
+      <p>
+        <span class="bold">Maxiumum amount:</span>
+        £{{ paymentItemCosts?.variableCostMax }}
+      </p>
+      } @else {
+      <p>
+        <span class="bold">Fixed amount:</span>
+        £{{ paymentItemCosts?.fixedCost }}
+      </p>
+      }
+      <p>
+        <span class="bold">Due date:</span>
+        {{
+          paymentItemCosts?.dueDateOption ? paymentItemCosts?.dueDate : "None"
+        }}
+      </p>
+
+      <p>
+        <span class="bold">Bank account selected:</span>
+        {{ paymentItemCosts?.bankAccount }}
+      </p>
+      <p>
+        <span class="bold">Accounting codes:</span>
+        @if (paymentItemCosts && paymentItemCosts.accountingCodes.length > 0) {
+        @for(accountingCode of paymentItemCosts.accountingCodes; track
+        accountingCode){
+        {{ accountingCode }}
+        } } @else{ None }
+      </p>
+      <!-- !isPublished && ( -->
+
+      <button class="btn btn-primary mt-2" (click)="goto('/costs')">
+        Edit costs
+      </button>
+      <!-- </Link> -->
+    </div>
+  </div>
+</div>
+<!-- !isPublished && ( -->
+<div class="trips-buttons">
+  <div class="text-start">
+    <button class="btn btn-link mt-2">Back</button>
+  </div>
+  <div class="text-end">
+    <button
+      type="button"
+      class="btn btn-light mt-2 me-2"
+      onClick="exitWithoutSaving"
+    >
+      Cancel
+    </button>
+    <button type="button" class="btn btn-primary mt-2" onClick="handlePublish">
+      Publish
+    </button>
+  </div>
+  <!-- showModal && <Modal onClose=closeModal /> -->
+</div>
+<!-- ) -->

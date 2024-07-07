@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -19,27 +19,43 @@ import ItemCosts from '../../types/ItemCosts';
   templateUrl: './costs-page.component.html',
   styleUrl: './costs-page.component.scss',
 })
-export class CostsPageComponent {
+export class CostsPageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public modalService: ExitModalService,
     private formCtxSvc: FormContextService,
     private router: Router
-  ) {
+  ) {}
+  ngOnInit(): void {
+    this.costsFormValue = this.formCtxSvc.paymentItemsCostsSignal();
     this.costsForm = this.formBuilder.group({
-      variableCostOption: 'fixed',
-      fixedCost: [0, this.fixedCostValidator],
-      hasDueDate: 'false',
-      dueDate: ['', this.dueDateValidator],
-      bankAccount: ['', Validators.required],
-      variableDefault: [0, this.variableCostValidator],
-      variableMin: [0, this.variableCostValidator],
-      variableMax: [0, this.variableCostValidator],
+      variableCostOption: this.costsFormValue?.variableCostOption
+        ? 'variable'
+        : 'fixed',
+      fixedCost: [this.costsFormValue?.fixedCost ?? 0, this.fixedCostValidator],
+      hasDueDate: this.costsFormValue?.dueDateOption ? 'true' : 'false',
+      dueDate: [this.costsFormValue?.dueDate ?? '', this.dueDateValidator],
+      bankAccount: [
+        this.costsFormValue?.bankAccount ?? '',
+        Validators.required,
+      ],
+      variableDefault: [
+        this.costsFormValue?.variableCostDefault ?? 0,
+        this.variableCostValidator,
+      ],
+      variableMin: [
+        this.costsFormValue?.variableCostMin ?? 0,
+        this.variableCostValidator,
+      ],
+      variableMax: [
+        this.costsFormValue?.variableCostMax ?? 0,
+        this.variableCostValidator,
+      ],
       addAccountingCodes: 'false',
     });
   }
-
-  costsForm: FormGroup;
+  costsFormValue: ItemCosts | null = null;
+  costsForm: FormGroup = new FormGroup({});
   submitClicked = false;
 
   fixedCostValidator = (control: AbstractControl) => {

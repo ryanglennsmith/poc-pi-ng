@@ -10,51 +10,96 @@
           (click)="closeModal()"
         ></button>
       </div>
-      <div class="modal-body text-start">
-        <div class="mb-3">
-          <span class="bold">Add groups</span>
-          <select class="form-select">
-            <option selected disabled>Open this select menu</option>
-            @for (group of yearGroups; track group) {
-            <option value="group">
-              <span (click)="pushGroup(group)">{{ group }}</span>
+      <form [formGroup]="addPeopleForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body text-start">
+          <div class="form-check text-start mb-3">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="manual"
+              formControlName="assignmentType"
+              value="manual"
+            /><label class="form-check-label" for="notes"
+              >Selected students, staff, visitors or others</label
+            >
+          </div>
+          <div class="mb-3">
+            <span class="bold">Add groups</span>
+            <select class="form-select" (change)="pushGroup($event)">
+              <option selected disabled>Add groups</option>
+              @for (group of yearGroups; track group) {
+              <option [value]="group">
+                <span>{{ group }}</span>
+              </option>
+              }
+            </select>
+            @if (selectedGroups.length > 0) {
+            <div class="mt-1 text-start">
+              @for (group of selectedGroups; track group) {
+              <span
+                [id]="group"
+                (click)="popGroup($event)"
+                class="badge bg-primary me-2 fs-7"
+                key="key"
+                >{{ group }}</span
+              >
+              }
+            </div>
+            }
+          </div>
+          <span class="bold">Add individuals</span>
+          <select class="form-select" (change)="pushPerson($event)">
+            <option selected disabled>Add individuals</option>
+            @for (person of people; track person.id) {
+            <option [value]="person.id">
+              <span>{{ person.first_name }}&nbsp;{{ person.last_name }}</span>
             </option>
             }
           </select>
-          @if (selectedGroups.length > 0) { @for (group of selectedGroups; track
-          group) {
+          @if (selectedPeople.length > 0) {
           <div class="mt-1 text-start">
-            <span class="badge bg-primary me-2 fs-7" key="key"
-              >{{ group }}<span (click)="xClick()">&nbsp;x</span></span
+            @for (person of selectedPeople; track person.id) {
+            <span
+              (click)="popPerson($event)"
+              class="badge bg-primary me-2 fs-7"
+              key="key"
+              [id]="person.id"
+              >{{ person.first_name }}&nbsp;{{ person.last_name }}</span
             >
+            }
           </div>
-          }}
-        </div>
-        <span class="bold">Add individuals</span>
-        <select class="form-select">
-          <option selected disabled>Open this select menu</option>
-          @for (person of people; track person) {
-          <option value="person">
-            <span (click)="pushPerson(person)">{{ person }}</span>
-          </option>
           }
-        </select>
-        <!-- {selectedPupils.length > 0 && (
+
+          <!-- {selectedPupils.length > 0 && (
         <div class="mt-1 text-start">
           {selectedPupils.map((group, index) => (
           <span class="badge bg-primary me-2 fs-7" key="{index}">{group}</span>
           ))}
         </div>
         )} -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-link" (click)="closeModal()">
-          Cancel
-        </button>
-        <button type="button" class="btn btn-primary" (click)="placeholder()">
-          Add
-        </button>
-      </div>
+          <div class="form-check text-start mt-5">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="global"
+              formControlName="assignmentType"
+              value="global"
+            /><label class="form-check-label mb-3" for="notes"
+              >Auto-assign</label
+            >
+            <p>
+              Assigned to everyone currently in the school and will
+              automatically include any new joiners in the future.
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link" (click)="closeModal()">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">Confirm</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

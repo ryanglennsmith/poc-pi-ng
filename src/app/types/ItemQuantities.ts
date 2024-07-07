@@ -6,6 +6,7 @@ interface ItemQuantities {
   stockAvailable: number;
   minimum: number;
   maximum: number;
+  default: number;
 }
 
 export default ItemQuantities;

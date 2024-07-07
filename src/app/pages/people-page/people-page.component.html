@@ -1,40 +1,23 @@
 <form [formGroup]="peopleForm" (ngSubmit)="onSubmit()">
+  @if (formCtxSvc.showPeopleInitialStateSignal()){
   <div class="card">
     <div class="card-body">
       <h5 class="card-title">Assign people</h5>
-
-      <p class="bold text-start">Assignment type</p>
-      <div class="form-check text-start">
-        <input
-          class="form-check-input"
-          type="radio"
-          id="manually"
-          [checked]="showManual"
-          (click)="toggleManual()"
-          formControlName="manual"
-        />
-        <label class="form-check-label" for="manually">
-          Selected pupils, staff, visitors, pre-admissions or others
-        </label>
-      </div>
-      <div class="form-check text-start">
-        <input
-          class="form-check-input"
-          type="radio"
-          id="global"
-          formControlName="global"
-          (click)="toggleGlobal()"
-          [checked]="showGlobal"
-        />
-        <label class="form-check-label" for="global">
-          Global - This will go to the whole school and any new people
-          automatically
-        </label>
+      <!-- THIS IS RYAN JUST DOING WHATEVER KIND OF BOOTSTRAP STUFF HE CAN FIND. 🤪 HALP! -->
+      <div class="container-fluid border border-1 rounded p-4 text-center">
+        <h4 class="text-center mb-5">
+          Assign students, staff, visitors or others
+        </h4>
+        <button class="btn btn-primary" type="button" (click)="showAddModal()">
+          Add people
+        </button>
       </div>
     </div>
   </div>
-  @if (showGlobal){
-  <app-global-add />} @if (showManual){
+
+  } @if (showGlobal){
+  <app-global-add />
+  } @if (formCtxSvc.showPeoplePreviewSignal()){
   <app-manual-add />
   }
   <div class="trips-buttons">
@@ -42,9 +25,6 @@
       <button class="btn btn-link mt-2">Back</button>
     </div>
     <div class="text-end">
-      <!-- <button class="btn btn-link mt-2 ms-2 reset" onClick="{handleReset}">
-      Reset
-    </button> -->
       <button
         type="button"
         class="btn btn-light mt-2 me-2"
@@ -58,8 +38,9 @@
         Save</button
       >} @if (successResponse) {
       <button class="btn btn-primary mt-2">Continue</button>
+      } @if (modalService.addPeopleModalSignal()){
+      <app-add-modal />
       }
-
       <!-- {showModal && <Modal onClose={closeModal} />} -->
     </div>
   </div>

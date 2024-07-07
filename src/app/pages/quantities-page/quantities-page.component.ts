@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -18,25 +18,50 @@ import ItemQuantities from '../../types/ItemQuantities';
   templateUrl: './quantities-page.component.html',
   styleUrl: './quantities-page.component.scss',
 })
-export class QuantitiesPageComponent {
+export class QuantitiesPageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public modalService: ExitModalService,
     private formCtxSvc: FormContextService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
+    this.quantitiesFormValue = this.formCtxSvc.itemQuantitiesSignal();
     this.quantitiesForm = this.formBuilder.group({
-      limitedPlacesOption: 'unlimited',
-      limitedQuantityOption: 'unlimited',
-      repeatableOption: 'one-time',
-      numberOfPlaces: [0, this.limitedPlacesValidator],
-      stockAvailable: [0, this.limitedQuantityValidator],
-      minimum: [0, this.limitedQuantityValidator],
-      maximum: [0, this.limitedQuantityValidator],
+      limitedPlacesOption: this.quantitiesFormValue?.limitedPlaces
+        ? 'limited'
+        : 'unlimited',
+      limitedQuantityOption: this.quantitiesFormValue?.limitedQuantity
+        ? 'limited'
+        : 'unlimited',
+      repeatableOption: this.quantitiesFormValue?.repeatable
+        ? 'repeatable'
+        : 'one-time',
+      numberOfPlaces: [
+        this.quantitiesFormValue?.numberOfPlaces ?? 0,
+        this.limitedPlacesValidator,
+      ],
+      stockAvailable: [
+        this.quantitiesFormValue?.stockAvailable ?? 0,
+        this.limitedQuantityValidator,
+      ],
+      minimum: [
+        this.quantitiesFormValue?.minimum ?? 0,
+        this.limitedQuantityValidator,
+      ],
+      maximum: [
+        this.quantitiesFormValue?.maximum ?? 0,
+        this.limitedQuantityValidator,
+      ],
+      default: [
+        this.quantitiesFormValue?.default ?? 0,
+        this.limitedQuantityValidator,
+      ],
     });
   }
-
   showLimitedQtyField = false;
+  quantitiesFormValue: ItemQuantities | null = null;
   toggleLimitedQtyField = () => {
     this.showLimitedQtyField =
       this.quantitiesForm.value.limitedQuantityOption === 'limited';
@@ -48,7 +73,7 @@ export class QuantitiesPageComponent {
       this.quantitiesForm.value.limitedPlacesOption === 'limited';
     console.log(`thing ${this.quantitiesForm.value.limitedPlacesOption}`);
   };
-  quantitiesForm: FormGroup;
+  quantitiesForm: FormGroup = new FormGroup({});
   handleSubmit = () => {
     this.submitClicked = true;
     if (this.quantitiesForm.invalid) {
@@ -64,6 +89,7 @@ export class QuantitiesPageComponent {
       stockAvailable: this.quantitiesForm.value.stockAvailable,
       minimum: this.quantitiesForm.value.minimum,
       maximum: this.quantitiesForm.value.maximum,
+      default: this.quantitiesForm.value.default,
     };
     this.formCtxSvc.setItemQuantities(quantities);
     this.router.navigate(['/costs']);
