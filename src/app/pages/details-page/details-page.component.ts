@@ -71,7 +71,4 @@ export class DetailsPageComponent implements OnInit {
   get description() {
     return this.paymentItemForm!.get('description');
   }
-  goForward = () => {
-    this.router.navigate(['/quantities']);
-  };
 }
