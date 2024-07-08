@@ -42,7 +42,7 @@
               type="radio"
               formControlName="limitedPlacesOption"
               value="limited"
-              (ngModelChange)="toggleLimitedPlacesField()"
+              (change)="toggleLimitedPlacesField($event)"
             />
             <label class="form-check-label" for="limitedPlaces"
               >I have a specific number</label
@@ -54,7 +54,7 @@
               type="radio"
               formControlName="limitedPlacesOption"
               value="unlimited"
-              (ngModelChange)="toggleLimitedPlacesField()"
+              (change)="toggleLimitedPlacesField($event)"
             />
             <label class="form-check-label me-3" for="limitedPlaces"
               >No limit</label
@@ -92,7 +92,7 @@
               type="radio"
               formControlName="limitedQuantityOption"
               value="limited"
-              (ngModelChange)="toggleLimitedQtyField()"
+              (change)="toggleLimitedQtyField($event)"
             />
             <label class="form-check-label" for="itemQuantityOption"
               >Limit the number someone can buy per transaction</label
@@ -104,7 +104,7 @@
               type="radio"
               formControlName="limitedQuantityOption"
               value="unlimited"
-              (ngModelChange)="toggleLimitedQtyField()"
+              (change)="toggleLimitedQtyField($event)"
             />
             <label class="form-check-label me-3" for="itemQuantityOption"
               >No limit</label
@@ -143,9 +143,9 @@
         </div>
       </div>
       } @if (submitClicked && limitedQuantityOption &&
-      (stockAvailableOption!.hasError('required') ||
-      minimumOption!.hasError('required') ||
-      maximumOption!.hasError('required'))) {
+      (limitedQuantityOption.hasError('required') ||
+      minimumOption?.hasError('required') ||
+      maximumOption?.hasError('required'))) {
       <div class="text-danger">Fill out all quantity fields</div>
       }
     </div>

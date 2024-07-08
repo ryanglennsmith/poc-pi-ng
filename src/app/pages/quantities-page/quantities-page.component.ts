@@ -40,35 +40,48 @@ export class QuantitiesPageComponent implements OnInit {
         : 'one-time',
       numberOfPlaces: [
         this.quantitiesFormValue?.numberOfPlaces ?? 0,
-        this.limitedPlacesValidator,
+
+        // this.limitedPlacesValidator,
       ],
-      stockAvailable: [
-        this.quantitiesFormValue?.stockAvailable ?? 0,
-        this.limitedQuantityValidator,
-      ],
+      // stockAvailable: [
+      //   this.quantitiesFormValue?.stockAvailable ?? 0,
+      //   this.limitedQuantityValidator,
+      // ],
       minimum: [
         this.quantitiesFormValue?.minimum ?? 0,
-        this.limitedQuantityValidator,
+        // this.quantitiesFormValue?.limitedQuantity
+        //   ? this.limitedQuantityValidator
+        //   : null,
       ],
       maximum: [
         this.quantitiesFormValue?.maximum ?? 0,
-        this.limitedQuantityValidator,
+        // this.quantitiesFormValue?.limitedQuantity
+        //   ? this.limitedQuantityValidator
+        //   : null,
       ],
       default: [
         this.quantitiesFormValue?.default ?? 0,
-        this.limitedQuantityValidator,
+        // this.quantitiesFormValue?.limitedQuantity
+        //   ? this.limitedQuantityValidator
+        //   : null,
       ],
     });
   }
   showLimitedQtyField = false;
   quantitiesFormValue: ItemQuantities | null = null;
-  toggleLimitedQtyField = () => {
+  toggleLimitedQtyField = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    const value = target.value;
+    this.limitedQuantityOption?.setValue(value);
     this.showLimitedQtyField =
       this.quantitiesForm.value.limitedQuantityOption === 'limited';
     console.log(`thing ${this.quantitiesForm.value.limitedQuantityOption}`);
   };
   showLimitedPlacesField = false;
-  toggleLimitedPlacesField = () => {
+  toggleLimitedPlacesField = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    const value = target.value;
+    this.limitedPlacesOption?.setValue(value);
     this.showLimitedPlacesField =
       this.quantitiesForm.value.limitedPlacesOption === 'limited';
     console.log(`thing ${this.quantitiesForm.value.limitedPlacesOption}`);
@@ -86,7 +99,7 @@ export class QuantitiesPageComponent implements OnInit {
         this.quantitiesForm.value.limitedQuantityOption === 'limited',
       repeatable: this.quantitiesForm.value.repeatableOption === 'repeatable',
       numberOfPlaces: this.quantitiesForm.value.numberOfPlaces,
-      stockAvailable: this.quantitiesForm.value.stockAvailable,
+      // stockAvailable: this.quantitiesForm.value.stockAvailable,
       minimum: this.quantitiesForm.value.minimum,
       maximum: this.quantitiesForm.value.maximum,
       default: this.quantitiesForm.value.default,

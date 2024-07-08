@@ -3,7 +3,7 @@ interface ItemQuantities {
   limitedQuantity: boolean;
   repeatable: boolean;
   numberOfPlaces: number;
-  stockAvailable: number;
+  // stockAvailable: number;
   minimum: number;
   maximum: number;
   default: number;
