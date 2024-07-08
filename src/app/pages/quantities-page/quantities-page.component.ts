@@ -144,10 +144,7 @@ export class QuantitiesPageComponent implements OnInit {
   get maximumOption() {
     return this.quantitiesForm.get('maximum');
   }
-  //TODO delete this
-  goForward = () => {
-    this.router.navigate(['/costs']);
-  };
+
   goBack = () => {
     this.router.navigate(['/details']);
   };

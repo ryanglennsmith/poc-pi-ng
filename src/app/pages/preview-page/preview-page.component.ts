@@ -31,4 +31,7 @@ export class PreviewPageComponent implements OnInit {
   goto = (route: string) => {
     this.router.navigate([route]);
   };
+  goBack = () => {
+    this.router.navigate(['/people']);
+  };
 }

@@ -88,10 +88,6 @@ export class CostsPageComponent implements OnInit {
     return null;
   };
 
-  //TODO delete this
-  goForward = () => {
-    this.router.navigate(['/people']);
-  };
   goBack = () => {
     this.router.navigate(['/quantities']);
   };

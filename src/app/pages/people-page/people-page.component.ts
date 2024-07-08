@@ -6,6 +6,7 @@ import { ExitModalService } from '../../services/exit-modal.service';
 import { AddModalComponent } from '../../components/add-modal/add-modal.component';
 import { MockBackendService } from '../../services/mock-backend.service';
 import { FormContextService } from '../../services/form-context.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-people-page',
@@ -24,7 +25,8 @@ export class PeoplePageComponent {
     private formBuilder: FormBuilder,
     public modalService: ExitModalService,
     public backend: MockBackendService,
-    public formCtxSvc: FormContextService
+    public formCtxSvc: FormContextService,
+    private router: Router
   ) {
     this.peopleForm = this.formBuilder.group({});
   }
@@ -49,4 +51,7 @@ export class PeoplePageComponent {
   get showGlobalValue() {
     return this.showGlobal;
   }
+  goBack = () => {
+    this.router.navigate(['/costs']);
+  };
 }
