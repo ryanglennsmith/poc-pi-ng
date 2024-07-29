@@ -31,7 +31,7 @@ export class DetailsPageComponent implements OnInit {
     this.paymentItemForm = this.formBuilder.group({
       itemName: [this.itemDetails?.itemName ?? '', Validators.required],
       itemShortName: this.itemDetails?.itemShortName ?? '',
-      description: [this.itemDetails?.description ?? '', Validators.required], // i borked the form length validator here and too tired to figure out how to fix it, some kind of async validator error that i need to learn how to fix
+      description: [this.itemDetails?.description ?? '', Validators.required], // [maxlength]="1000" prevents going over
       notes: this.itemDetails?.notes ?? 'none',
       category: this.itemDetails?.category ?? 'None',
       requireConsent: this.itemDetails?.requireConsent ?? false,

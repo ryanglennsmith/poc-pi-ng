@@ -10,6 +10,7 @@ import { ExitModalComponent } from '../../components/exit-modal/exit-modal.compo
 import { ExitModalService } from '../../services/exit-modal.service';
 import { FormContextService } from '../../services/form-context.service';
 import ItemQuantities from '../../types/ItemQuantities';
+import { ValidationService } from '../../services/validation.service';
 
 @Component({
   selector: 'app-quantities-page',
@@ -23,7 +24,8 @@ export class QuantitiesPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     public modalService: ExitModalService,
     private formCtxSvc: FormContextService,
-    private router: Router
+    private router: Router,
+    private validationSvc: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -40,30 +42,19 @@ export class QuantitiesPageComponent implements OnInit {
         : 'one-time',
       numberOfPlaces: [
         this.quantitiesFormValue?.numberOfPlaces ?? 0,
-
-        // this.limitedPlacesValidator,
+        this.limitedPlacesValidator,
       ],
-      // stockAvailable: [
-      //   this.quantitiesFormValue?.stockAvailable ?? 0,
-      //   this.limitedQuantityValidator,
-      // ],
       minimum: [
         this.quantitiesFormValue?.minimum ?? 0,
-        // this.quantitiesFormValue?.limitedQuantity
-        //   ? this.limitedQuantityValidator
-        //   : null,
+        this.limitedQuantityValidator
       ],
       maximum: [
         this.quantitiesFormValue?.maximum ?? 0,
-        // this.quantitiesFormValue?.limitedQuantity
-        //   ? this.limitedQuantityValidator
-        //   : null,
+        this.limitedQuantityValidator
       ],
       default: [
         this.quantitiesFormValue?.default ?? 0,
-        // this.quantitiesFormValue?.limitedQuantity
-        //   ? this.limitedQuantityValidator
-        //   : null,
+        this.limitedQuantityValidator
       ],
     });
   }
@@ -75,7 +66,6 @@ export class QuantitiesPageComponent implements OnInit {
     this.limitedQuantityOption?.setValue(value);
     this.showLimitedQtyField =
       this.quantitiesForm.value.limitedQuantityOption === 'limited';
-    console.log(`thing ${this.quantitiesForm.value.limitedQuantityOption}`);
   };
   showLimitedPlacesField = false;
   toggleLimitedPlacesField = (e: Event) => {
@@ -84,14 +74,11 @@ export class QuantitiesPageComponent implements OnInit {
     this.limitedPlacesOption?.setValue(value);
     this.showLimitedPlacesField =
       this.quantitiesForm.value.limitedPlacesOption === 'limited';
-    console.log(`thing ${this.quantitiesForm.value.limitedPlacesOption}`);
   };
   quantitiesForm: FormGroup = new FormGroup({});
   handleSubmit = () => {
     this.submitClicked = true;
-    if (this.quantitiesForm.invalid) {
-      return;
-    }
+   
     const quantities: ItemQuantities = {
       limitedPlaces:
         this.quantitiesForm.value.limitedPlacesOption === 'limited',
@@ -99,12 +86,16 @@ export class QuantitiesPageComponent implements OnInit {
         this.quantitiesForm.value.limitedQuantityOption === 'limited',
       repeatable: this.quantitiesForm.value.repeatableOption === 'repeatable',
       numberOfPlaces: this.quantitiesForm.value.numberOfPlaces,
-      // stockAvailable: this.quantitiesForm.value.stockAvailable,
       minimum: this.quantitiesForm.value.minimum,
       maximum: this.quantitiesForm.value.maximum,
       default: this.quantitiesForm.value.default,
     };
     this.formCtxSvc.setItemQuantities(quantities);
+    this.revalidateForm();
+     if (this.quantitiesForm.invalid) {
+       console.log('invalid form');
+       return;
+     }
     this.router.navigate(['/costs']);
   };
 
@@ -114,6 +105,21 @@ export class QuantitiesPageComponent implements OnInit {
   };
 
   submitClicked = false;
+
+  revalidateForm = () => {
+      if (this.formCtxSvc.itemQuantitiesSignal()?.limitedPlaces) {
+        this.numberOfPlacesOption?.setValidators(this.limitedPlacesValidator);
+      }
+      this.numberOfPlacesOption?.updateValueAndValidity();
+      if (this.formCtxSvc.itemQuantitiesSignal()?.limitedQuantity) {
+        this.minimumOption?.setValidators(this.limitedQuantityValidator);
+        this.maximumOption?.setValidators(this.limitedQuantityValidator);
+        this.defaultOption?.setValidators(this.limitedQuantityValidator);
+      }
+      this.minimumOption?.updateValueAndValidity();
+      this.maximumOption?.updateValueAndValidity();
+      this.defaultOption?.updateValueAndValidity();
+  }
 
   limitedPlacesValidator = (control: AbstractControl) => {
     if (
@@ -126,6 +132,7 @@ export class QuantitiesPageComponent implements OnInit {
     return null;
   };
 
+  //this setup does not handle max being smaller than min
   limitedQuantityValidator = (control: AbstractControl) => {
     if (
       this.quantitiesForm &&
@@ -156,6 +163,9 @@ export class QuantitiesPageComponent implements OnInit {
   }
   get maximumOption() {
     return this.quantitiesForm.get('maximum');
+  }
+  get defaultOption() {
+    return this.quantitiesForm.get('default');
   }
 
   goBack = () => {
