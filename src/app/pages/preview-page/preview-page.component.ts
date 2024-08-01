@@ -5,15 +5,17 @@ import PaymentItemDetails from '../../types/PaymentItemDetails';
 import ItemQuantities from '../../types/ItemQuantities';
 import ItemCosts from '../../types/ItemCosts';
 import { Router } from '@angular/router';
+import { ExitModalService } from '../../services/exit-modal.service';
+import { ExitModalComponent } from '../../components/exit-modal/exit-modal.component';
 @Component({
   selector: 'app-preview-page',
   standalone: true,
-  imports: [],
+  imports: [ExitModalComponent],
   templateUrl: './preview-page.component.html',
   styleUrl: './preview-page.component.scss',
 })
 export class PreviewPageComponent implements OnInit {
-  constructor(public formCtxSvc: FormContextService, private router: Router) {}
+  constructor(public formCtxSvc: FormContextService, private router: Router, public modalService: ExitModalService) {}
   peopleAdded: Person[] | null = null;
   globalAssignment: boolean = false;
   paymentItemDetails: PaymentItemDetails | null = null;
@@ -34,4 +36,11 @@ export class PreviewPageComponent implements OnInit {
   goBack = () => {
     this.router.navigate(['/people']);
   };
+  handlePublish = () => {
+    console.log('publish');
+  };
+  cancelClicked = () => {
+    this.modalService.showModal();
+    console.log('Cancel clicked');
+  }
 }

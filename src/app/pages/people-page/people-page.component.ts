@@ -7,6 +7,7 @@ import { AddModalComponent } from '../../components/add-modal/add-modal.componen
 import { MockBackendService } from '../../services/mock-backend.service';
 import { FormContextService } from '../../services/form-context.service';
 import { Router } from '@angular/router';
+import { ExitModalComponent } from '../../components/exit-modal/exit-modal.component';
 
 @Component({
   selector: 'app-people-page',
@@ -16,6 +17,7 @@ import { Router } from '@angular/router';
     GlobalAddComponent,
     ReactiveFormsModule,
     AddModalComponent,
+    ExitModalComponent
   ],
   templateUrl: './people-page.component.html',
   styleUrl: './people-page.component.scss',
@@ -36,15 +38,16 @@ export class PeoplePageComponent {
   showManual = false;
   successResponse = false;
 
-  onSubmit() {
+  onSubmit = () => {
     console.log(this.peopleForm.value);
     // this.successResponse = true;
   }
-  cancelClicked() {
+  cancelClicked = () => {
+    this.modalService.showModal();
     console.log('Cancel clicked');
   }
 
-  showAddModal() {
+  showAddModal = () => {
     this.modalService.showAddPeopleModal();
     console.log('Show Add Modal');
   }

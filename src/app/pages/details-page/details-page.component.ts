@@ -31,7 +31,7 @@ export class DetailsPageComponent implements OnInit {
     this.paymentItemForm = this.formBuilder.group({
       itemName: [this.itemDetails?.itemName ?? '', Validators.required],
       itemShortName: this.itemDetails?.itemShortName ?? '',
-      description: [this.itemDetails?.description ?? '', Validators.required], // [maxlength]="1000" prevents going over
+      description: [this.itemDetails?.description ?? '', Validators.required], // [maxlength]="1000" on the html prevents going over
       notes: this.itemDetails?.notes ?? 'none',
       category: this.itemDetails?.category ?? 'None',
       requireConsent: this.itemDetails?.requireConsent ?? false,

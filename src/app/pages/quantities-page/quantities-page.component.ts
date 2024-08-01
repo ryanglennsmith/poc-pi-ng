@@ -10,7 +10,6 @@ import { ExitModalComponent } from '../../components/exit-modal/exit-modal.compo
 import { ExitModalService } from '../../services/exit-modal.service';
 import { FormContextService } from '../../services/form-context.service';
 import ItemQuantities from '../../types/ItemQuantities';
-import { ValidationService } from '../../services/validation.service';
 
 @Component({
   selector: 'app-quantities-page',
@@ -25,7 +24,6 @@ export class QuantitiesPageComponent implements OnInit {
     public modalService: ExitModalService,
     private formCtxSvc: FormContextService,
     private router: Router,
-    private validationSvc: ValidationService
   ) {}
 
   ngOnInit(): void {

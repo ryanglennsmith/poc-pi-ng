@@ -41,7 +41,9 @@
       } @if (modalService.addPeopleModalSignal()){
       <app-add-modal />
       }
-      <!-- {showModal && <Modal onClose={closeModal} />} -->
+      @if (modalService.showModalSignal()){
+  <app-exit-modal />
+  }
     </div>
   </div>
 </form>

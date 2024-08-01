@@ -129,14 +129,15 @@
     <button
       type="button"
       class="btn btn-light mt-2 me-2"
-      onClick="exitWithoutSaving"
+      (click)="cancelClicked()"
     >
       Cancel
     </button>
-    <button type="button" class="btn btn-primary mt-2" onClick="handlePublish">
+    <button type="button" class="btn btn-primary mt-2" (click)="handlePublish()">
       Publish
     </button>
   </div>
-  <!-- showModal && <Modal onClose=closeModal /> -->
 </div>
-<!-- ) -->
+@if (modalService.showModalSignal()){
+<app-exit-modal />
+}
